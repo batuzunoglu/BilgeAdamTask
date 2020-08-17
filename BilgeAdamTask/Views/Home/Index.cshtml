@@ -1,0 +1,49 @@
+﻿
+@model List<Post>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="row">
+        <div class="col-lg-8 col-12">
+            <div class="row">
+                @foreach (var post in Model)
+                {
+                    <div class="col-lg-6 col-12">
+                        <!-- Blog Post -->
+                        <div class="card mb-4">
+                            <img class="card-img-top" src="@post.ImageUrl" alt="image" style="height:250px">
+                            <div class="card-body">
+                                <h2 class="card-title">@post.Title</h2>
+                                <p class="card-text">@post.Content.Substring(0, post.Content.Length / 4)</p>
+                                <div class="my-3">
+                                    <span class="badge badge-warning">@post.Category.Name</span>
+                                </div>
+                                <a asp-action="Detail" asp-route-Id="@post.Id" class="btn btn-primary">Devamını Oku</a>
+                            </div>
+                            <div class="card-footer text-muted text-center">
+                                @post.PublishDate.ToString("dd:MM:yyyy")
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-12">
+            <div class="card border-0 shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mt-1" style="text-align:center">Categories</h5>
+                    @foreach (var category in (ViewData["CategoryList"] as List<Category>))
+                    {
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-center small">
+                                <span class="font-weight-bold">@category.Name</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
